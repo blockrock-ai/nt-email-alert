@@ -1,3 +1,7 @@
+//
+// Copyright (C) 2022, NinjaTrader LLC <www.ninjatrader.com>.
+// NinjaTrader reserves the right to modify or overwrite this NinjaScript component with each release.
+//
 #region Using declarations
 using System;
 using System.Collections.Generic;
@@ -34,10 +38,6 @@ namespace NinjaTrader.NinjaScript.Strategies
 			{
 				Description	= "";
 				Name		= "OrderExecutionEmailAlert";
-				
-				// This strategy has been designed to take advantage of performance gains in Strategy Analyzer optimizations
-				// See the Help Guide for additional information
-				IsInstantiatedOnEachOptimizationIteration = false;
 					
 		        // Find our Sim101 account
 		        lock (Account.All)
@@ -62,6 +62,11 @@ namespace NinjaTrader.NinjaScript.Strategies
 		
 		private void OnExecutionUpdate(object sender, ExecutionEventArgs e)
 		{
+			if (State == State.Historical)
+			{
+				return;
+			}
+			
 		  	foreach (Execution execution in MyAccount.Executions)
 		  	{
 		      	Print(String.Format("Execution triggered for Order {0}", execution.Order));
