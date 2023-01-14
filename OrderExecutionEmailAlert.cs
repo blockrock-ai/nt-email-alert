@@ -67,12 +67,11 @@ namespace NinjaTrader.NinjaScript.Strategies
 				return;
 			}
 			
-		  	foreach (Execution execution in MyAccount.Executions)
-		  	{
-		      	Print(String.Format("Execution triggered for Order {0}", execution.Order));
-				string message = String.Format("{0}", execution.Order);
-		  		Share("Roboswap", message, new object[]{ "clockwork.roboswap@gmail.com", message });
-			}
+			Execution execution = e.Execution;
+		
+	      	Print(String.Format("Execution triggered for Order {0}", execution.Order));
+			string message = String.Format("{0}", execution.Order);
+	  		Share("Roboswap", message, new object[]{ "clockwork.roboswap@gmail.com", message });
 		}
 		
 		#region Properties
