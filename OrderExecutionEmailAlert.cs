@@ -39,18 +39,20 @@ namespace NinjaTrader.NinjaScript.Strategies
 				Description	= "";
 				Name		= "OrderExecutionEmailAlert";
 					
-		        // Find our Sim101 account
-		        lock (Account.All)
-		              MyAccount = Account.All.FirstOrDefault(a => a.Name == "Sim101");
-		 
-		        if (MyAccount != null)
-		        {
-			        MyAccount.ExecutionUpdate += OnExecutionUpdate;
-		        }
+				// Find our Sim101 account
+				lock (Account.All)
+				{
+					MyAccount = Account.All.FirstOrDefault(a => a.Name == "Sim101");
+				}
+
+				if (MyAccount != null)
+				{
+					MyAccount.ExecutionUpdate += OnExecutionUpdate;
+				}
 			}
 			else if (State == State.Terminated)
-    		{
-		        // Unsubscribe to events
+    			{
+		        	// Unsubscribe to events
 				MyAccount.ExecutionUpdate -= OnExecutionUpdate;
 			}
 		}
@@ -69,7 +71,7 @@ namespace NinjaTrader.NinjaScript.Strategies
 			
 			Execution execution = e.Execution;
 		
-	      	Print(String.Format("Execution triggered for Order {0}", execution.Order));
+	      		Print(String.Format("Execution triggered for Order {0}", execution.Order));
 			string message = String.Format("{0}", execution.Order);
 	  		Share("Roboswap", message, new object[]{ "clockwork.roboswap@gmail.com", message });
 		}
