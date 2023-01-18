@@ -31,14 +31,14 @@ namespace NinjaTrader.NinjaScript.Strategies
 	public class OrderExecutionEmailAlert : Strategy
 	{
 		private Account MyAccount;
- 
+
 		protected override void OnStateChange()
 		{
 			if (State == State.SetDefaults)
 			{
 				Description	= "";
 				Name		= "OrderExecutionEmailAlert";
-					
+
 				// Find our Sim101 account
 				lock (Account.All)
 				{
@@ -61,21 +61,21 @@ namespace NinjaTrader.NinjaScript.Strategies
 		{
 			// noop
 		}
-		
+
 		private void OnExecutionUpdate(object sender, ExecutionEventArgs e)
 		{
 			if (State == State.Historical)
 			{
 				return;
 			}
-			
+
 			Execution execution = e.Execution;
-		
+
 	      		Print(String.Format("Execution triggered for Order {0}", execution.Order));
 			string message = String.Format("{0}", execution.Order);
-	  		Share("Roboswap", message, new object[]{ "clockwork.roboswap@gmail.com", message });
+	  		Share("Email", message, new object[]{ "d101939dde016368ac4e@cloudmailin.net", message });
 		}
-		
+
 		#region Properties
 		#endregion
 	}
